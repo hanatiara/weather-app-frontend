@@ -16,6 +16,7 @@ return array(
     'App\\Factories\\ConfigurationResolverFactory' => $vendorDir . '/laravel/pint/app/Factories/ConfigurationResolverFactory.php',
     'App\\Fixers\\LaravelPhpdocAlignmentFixer' => $vendorDir . '/laravel/pint/app/Fixers/LaravelPhpdocAlignmentFixer.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
+    'App\\Http\\Controllers\\WeatherController' => $baseDir . '/app/Http/Controllers/WeatherController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',

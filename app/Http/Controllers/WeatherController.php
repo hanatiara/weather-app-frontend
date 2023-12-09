@@ -23,7 +23,7 @@ class WeatherController extends Controller
        $this->backend_url = env('BACKEND_URL');
     }
 
-    // Get semua list lokasi
+    // Get semua list lokasi ke dropdown
     private function getAllLocation(){
         $file = File::get(base_path('city.list.json'));
         $data = json_decode($file);
@@ -39,7 +39,8 @@ class WeatherController extends Controller
             }
 
         }
-        // dd($kota);
+
+        sort($kota);
 
         return $kota;
     }
@@ -47,16 +48,6 @@ class WeatherController extends Controller
     // Menampilkan page
     public function show($location = "Malang")
     {
-        // dd($this->getLocation());
-        // dd($this->fetchData($this->getLocation($location)->lat,$this->getLocation($location)->lon));
-        // dd(base_path('city.list.json'));
-        // dd($this->getAllLocation());
-
-        // return view('weather-index')->with([
-        //     'key' => $this->apikey,
-        //     'data' => $this->fetchData($this->getLocation($location)->lat,$this->getLocation($location)->lon),
-        //     'location' => $this->getLocation("location"),
-        // ]);
 
         return view('weather-index')->with([
             'title' => "Prediksi Cuaca",
@@ -80,23 +71,7 @@ class WeatherController extends Controller
     }
 
 
-    private function fetchData($lat, $lon){
-        //lat = latitude
-        //lon = longitude
-
-        $response = Http::get($this->url, [
-            'lat' => $lat,
-            'lon' => $lon,
-            'appid' => $this->apikey
-        ]);
-
-        $result = json_decode($response->body());
-
-        return $result;
-
-    }
-
-
+    // Mengambil data dari python ke web
     public function fetchDataFromBackend(Request $request) {
         // dd($request->bulan);
         // dd($this->backend_url);
@@ -108,11 +83,12 @@ class WeatherController extends Controller
 
         $result = json_decode($response->body());
 
-        // if ($result->message)
+        // dd($result);
 
-        // dd($result->message[0]->Clouds);
         $data = [
-            'result' => $result->message[0]->Clouds,
+            'message' => $result->message[0]->Clouds,
+            'month' => strtolower($request->bulan),
+            'city' => strtolower($request->kota),
             'title' => "Prediction Result"
         ];
 
